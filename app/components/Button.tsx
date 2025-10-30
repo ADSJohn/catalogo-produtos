@@ -1,11 +1,12 @@
 interface ButtonProps {
-    nome: string;
+  nome: string;
+  onClick?: () => void;
 }
 
-export default function Button({nome}:ButtonProps) {
-    return (
-        <div>
-            <button>{nome}</button>
-        </div>
-    )
+export default function Button({ nome, onClick }: ButtonProps) {
+  return (
+    <div>
+      <button onClick={onClick}>{nome}</button>
+    </div>
+  );
 }
