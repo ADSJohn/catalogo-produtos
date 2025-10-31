@@ -1,0 +1,36 @@
+.carousel-container{
+    position: relative;
+    max-width: 90%;
+    margin:20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+}
+
+.carousel::-webkit-scrollbar{
+    height: 6px;
+}
+
+.carousel::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.carousel-btn.left{
+    left: -25px;
+}
+
+.carousel-btn.right{
+    right: -25px;
+}
+
+.carousel-btn:hover{
+    background: rgb(0, 0, 0.8);
+}
