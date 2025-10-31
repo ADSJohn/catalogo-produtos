@@ -6,13 +6,14 @@ import Card from "./components/Card";
 export default function Home() {
   const [carrinho, setCarrinho] = useState<string[]>([]);
   const [mostrarCarrinho, setMostrarCarrinho] = useState(false);
+  const [animarMaisUm, setAnimarMaisUm] = useState<string | null>(null);
 
   const adicionarAoCarrinho = (descricao: string) => {
     if (!carrinho.includes(descricao)) {
       setCarrinho([...carrinho, descricao]);
-    } else {
-      alert(`${descricao} já está no carrinho!`);
     }
+    setAnimarMaisUm(descricao);
+    setTimeout(() => setAnimarMaisUm(null), 800);
   };
 
   const removerDoCarrinho = (descricao: string) => {
@@ -25,7 +26,7 @@ export default function Home() {
       return;
     }
 
-    const numero = "+551192987513"; // número do WhatsApp
+    const numero = "+551192987513";
     const texto = `Olá! Tenho interesse nos seguintes produtos:\n\n${carrinho
       .map((item, i) => `${i + 1}. ${item}`)
       .join("\n")}\n\nPode me enviar mais informações, por favor?`;
@@ -48,7 +49,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      {/* Ícone fixo do carrinho */}
+      {/* Carrinho fixo */}
       <div
         className="cart-icon"
         onClick={() => setMostrarCarrinho(!mostrarCarrinho)}
@@ -73,18 +74,16 @@ export default function Home() {
             strokeLinejoin="round"
           />
         </svg>
-
         {carrinho.length > 0 && (
           <span className="cart-count">{carrinho.length}</span>
         )}
       </div>
 
-      {/* Modal do carrinho */}
+      {/* Modal Carrinho */}
       {mostrarCarrinho && (
         <div className="cart-modal">
           <div className="cart-content">
             <h2>🛒 Seu Carrinho</h2>
-
             {carrinho.length === 0 ? (
               <p>O carrinho está vazio.</p>
             ) : (
@@ -102,7 +101,6 @@ export default function Home() {
                 ))}
               </ul>
             )}
-
             <div className="cart-actions">
               <button
                 className="close-btn"
@@ -110,7 +108,6 @@ export default function Home() {
               >
                 Fechar
               </button>
-
               {carrinho.length > 0 && (
                 <button className="finalizar-btn" onClick={finalizarPedido}>
                   Finalizar Pedido via WhatsApp
@@ -123,6 +120,7 @@ export default function Home() {
 
       <h1 className="titulo">🧴 Catálogo de Produtos</h1>
 
+      {/* Carrossel */}
       <div className="carousel-container">
         <button
           className="carousel-btn left"
@@ -140,11 +138,18 @@ export default function Home() {
               key={index}
               descricao={produto.descricao}
               image={produto.image}
+              className="card"
             >
-              <Button
-                nome="Adicionar ao Carrinho"
-                onClick={() => adicionarAoCarrinho(produto.descricao)}
-              />
+              <div className="card-btn-wrapper">
+                <Button
+                  nome="Adicionar ao Carrinho"
+                  onClick={() => adicionarAoCarrinho(produto.descricao)}
+                  className="btn-add"
+                />
+                {animarMaisUm === produto.descricao && (
+                  <span className="mais-um">+1</span>
+                )}
+              </div>
             </Card>
           ))}
         </div>
