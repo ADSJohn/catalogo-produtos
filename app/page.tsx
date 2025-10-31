@@ -25,12 +25,10 @@ export default function Home() {
       alert("Seu carrinho está vazio!");
       return;
     }
-
     const numero = "+551192987513";
     const texto = `Olá! Tenho interesse nos seguintes produtos:\n\n${carrinho
       .map((item, i) => `${i + 1}. ${item}`)
       .join("\n")}\n\nPode me enviar mais informações, por favor?`;
-
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
     window.open(url, "_blank");
   };
@@ -49,7 +47,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      {/* Carrinho fixo */}
+      {/* Ícone do carrinho */}
       <div
         className="cart-icon"
         onClick={() => setMostrarCarrinho(!mostrarCarrinho)}
@@ -61,15 +59,15 @@ export default function Home() {
         >
           <defs>
             <linearGradient id="cartGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#1dd05d" />
-              <stop offset="100%" stopColor="#1d9ad0" />
+              <stop offset="0%" stopColor="#9b5de5" />
+              <stop offset="100%" stopColor="#00bbf9" />
             </linearGradient>
           </defs>
           <path
             d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.436M7.5 14.25h10.125a1.125 1.125 0 001.09-.826l1.755-6.29a.375.375 0 00-.36-.484H6.09M7.5 14.25L5.106 5.271M7.5 14.25l-.38 1.435A1.125 1.125 0 008.25 16.875h9.75m-11.25 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm11.25 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
             fill="url(#cartGradient)"
             stroke="url(#cartGradient)"
-            strokeWidth="1.8"
+            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
@@ -118,7 +116,7 @@ export default function Home() {
         </div>
       )}
 
-      <h1 className="titulo">🧴 Catálogo de Produtos</h1>
+      <h1 className="titulo">✨ Catálogo de Produtos</h1>
 
       {/* Carrossel */}
       <div className="carousel-container">
@@ -134,18 +132,19 @@ export default function Home() {
 
         <div className="carousel">
           {produtos.map((produto, index) => (
-            <Card
-              key={index}
-              descricao={produto.descricao}
-              image={produto.image}
-              className="card"
-            >
+            <Card key={index}>
               <div className="card-btn-wrapper">
+                {/* DESCRIÇÃO ESTILIZADA ACIMA DA IMAGEM */}
+                <h2 className="produto-nome">{produto.descricao}</h2>
+                <img src={produto.image} alt={produto.descricao} />
+
+                {/* BOTÃO */}
                 <Button
                   nome="Adicionar ao Carrinho"
                   onClick={() => adicionarAoCarrinho(produto.descricao)}
                   className="btn-add"
                 />
+
                 {animarMaisUm === produto.descricao && (
                   <span className="mais-um">+1</span>
                 )}
@@ -153,6 +152,7 @@ export default function Home() {
             </Card>
           ))}
         </div>
+
 
         <button
           className="carousel-btn right"
