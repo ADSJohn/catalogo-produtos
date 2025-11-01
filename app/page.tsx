@@ -25,7 +25,7 @@ export default function Home() {
       alert("Seu carrinho está vazio!");
       return;
     }
-    const numero = "+551192987513";
+    const numero = "+559981298301";
     const texto = `Olá! Tenho interesse nos seguintes produtos:\n\n${carrinho
       .map((item, i) => `${i + 1}. ${item}`)
       .join("\n")}\n\nPode me enviar mais informações, por favor?`;
@@ -40,7 +40,10 @@ export default function Home() {
     { descricao: "Devengel", image: "/images/denvergel-20kg.jpg" },
     { descricao: "Lessence", image: "/images/floarome.jpg" },
     { descricao: "Garrafa Branca 5L", image: "/images/garrafa-branca-5L.jpg" },
-    { descricao: "Garrafa Cristal 5L", image: "/images/garrafa-cristal-5L.jpg" },
+    {
+      descricao: "Garrafa Cristal 5L",
+      image: "/images/garrafa-cristal-5L.jpg",
+    },
     { descricao: "Lauril Pasta", image: "/images/lauril-pasta.jpg" },
     { descricao: "Sulfônico", image: "/images/sulfonico.jpg" },
   ];
@@ -152,7 +155,6 @@ export default function Home() {
             </Card>
           ))}
         </div>
-
 
         <button
           className="carousel-btn right"
