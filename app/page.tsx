@@ -1,7 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "./components/Button";
-import Card from "./components/Card";
 
 export default function Home() {
   const produtos = [
@@ -16,7 +15,7 @@ export default function Home() {
       image: "/images/denvergel-20kg.jpg",
     },
     { descricao: "Essências Floarome", image: "/images/floarome.jpg" },
-    { descricao: "Essências Lessence", image: "/images/lessence.jpg" },
+    { descricao: "Essências Lessense", image: "/images/lessense.jpg" },
     { descricao: "Garrafa Branca 5L", image: "/images/garrafa-branca-5L.jpg" },
     { descricao: "Sulfônico Indiano 90% (SK)", image: "/images/sulfonico.jpg" },
   ];
@@ -24,20 +23,30 @@ export default function Home() {
   const [index, setIndex] = useState(0);
   const [carrinho, setCarrinho] = useState<string[]>([]);
   const [mostrarCarrinho, setMostrarCarrinho] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    setMounted(true);
+    setWidth(window.innerWidth);
+
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = width <= 768;
 
   const proximo = () => setIndex((i) => (i + 1) % produtos.length);
   const anterior = () =>
     setIndex((i) => (i - 1 + produtos.length) % produtos.length);
 
   const adicionarAoCarrinho = (descricao: string) => {
-    if (!carrinho.includes(descricao)) {
-      setCarrinho([...carrinho, descricao]);
-    }
+    if (!carrinho.includes(descricao)) setCarrinho([...carrinho, descricao]);
   };
 
-  const removerDoCarrinho = (descricao: string) => {
+  const removerDoCarrinho = (descricao: string) =>
     setCarrinho(carrinho.filter((item) => item !== descricao));
-  };
 
   const finalizarPedido = () => {
     if (carrinho.length === 0) {
@@ -52,9 +61,11 @@ export default function Home() {
     window.open(url, "_blank");
   };
 
+  if (!mounted) return null;
+
   return (
     <>
-      {/* Ícone do Carrinho */}
+      {/* Carrinho */}
       <div
         className="cart-icon"
         onClick={() => setMostrarCarrinho(!mostrarCarrinho)}
@@ -86,7 +97,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Modal do Carrinho */}
       {mostrarCarrinho && (
         <div className="cart-modal">
           <div className="cart-content">
@@ -95,8 +105,8 @@ export default function Home() {
               <p>O carrinho está vazio.</p>
             ) : (
               <ul>
-                {carrinho.map((item, index) => (
-                  <li key={index}>
+                {carrinho.map((item, idx) => (
+                  <li key={idx}>
                     {item}
                     <button
                       className="remove-btn"
@@ -125,44 +135,27 @@ export default function Home() {
         </div>
       )}
 
-      {/* === DESKTOP === */}
-      <div className="desktop">
+      {/* Catalogo */}
+      <div className="catalogo-container">
         <h1 className="titulo">✨ Catálogo de Produtos</h1>
-        <div className="carousel">
-          {produtos.map((p, i) => (
-            <Card key={i}>
-              <h2 className="produto-nome">{p.descricao}</h2>
-              <img src={p.image} alt={p.descricao} />
-              <Button
-                nome="Adicionar ao Carrinho"
-                onClick={() => adicionarAoCarrinho(p.descricao)}
-                className="btn-add"
-              />
-            </Card>
-          ))}
-        </div>
-      </div>
 
-      {/* === MOBILE === */}
-      <div className="carousel-mobile">
         <div
-          className="carousel-track"
-          style={{
-            transform: `translateX(-${index * 100}%)`,
-          }}
+          className={`carousel ${
+            isMobile ? "mobile-carousel" : "desktop-carousel"
+          }`}
+          style={isMobile ? { transform: `translateX(-${index * 100}%)` } : {}}
         >
           {produtos.map((produto, i) => (
-            <div className="card-full" key={i}>
+            <div key={i} className={`card ${isMobile ? "card-full" : ""}`}>
               <img
                 src={produto.image}
                 alt={produto.descricao}
-                className="imagem-full"
+                className={isMobile ? "imagem-full" : ""}
               />
-              <h2 className="produto-nome">{produto.descricao}</h2>
               <Button
                 nome="Adicionar ao Carrinho"
                 onClick={() => adicionarAoCarrinho(produto.descricao)}
-                className="btn-add"
+                className={isMobile ? "btn-add" : "btn-add-desktop"}
               />
             </div>
           ))}
