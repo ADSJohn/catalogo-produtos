@@ -101,7 +101,7 @@ html, body {
 }
 .carousel-btn:hover { background: rgba(0,0,0,0.7); }
 
-/* Carrinho menor */
+/* Carrinho */
 .cart-icon {
   position: fixed;
   top: 16px;
@@ -120,4 +120,103 @@ html, body {
   font-size: 0.7rem;
   padding: 2px 5px;
   font-weight: bold;
+}
+
+/* === MODAL CARRINHO === */
+.cart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.cart-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.cart-content h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.cart-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.cart-content li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f6f7fb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.remove-btn {
+  background: #ff3366;
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.close-btn, .finalizar-btn {
+  flex: 1;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(135deg, #9b5de5, #00bbf9);
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover, .finalizar-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b, #fcb045);
+}
+
+/* Scrollbar do modal */
+.cart-content ul::-webkit-scrollbar {
+  width: 6px;
+}
+.cart-content ul::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
 }

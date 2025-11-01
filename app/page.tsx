@@ -97,17 +97,21 @@ export default function Home() {
         )}
       </div>
 
+      {/* Modal do Carrinho */}
       {mostrarCarrinho && (
         <div className="cart-modal">
           <div className="cart-content">
             <h2>🛒 Seu Carrinho</h2>
+
             {carrinho.length === 0 ? (
-              <p>O carrinho está vazio.</p>
+              <p style={{ textAlign: "center", color: "#666" }}>
+                O carrinho está vazio.
+              </p>
             ) : (
               <ul>
                 {carrinho.map((item, idx) => (
                   <li key={idx}>
-                    {item}
+                    <span>{item}</span>
                     <button
                       className="remove-btn"
                       onClick={() => removerDoCarrinho(item)}
@@ -118,6 +122,7 @@ export default function Home() {
                 ))}
               </ul>
             )}
+
             <div className="cart-actions">
               <button
                 className="close-btn"
