@@ -4,16 +4,35 @@ import Button from "./components/Button";
 import Card from "./components/Card";
 
 export default function Home() {
+  const produtos = [
+    { descricao: "Ácido Lincap 40/10 25KG", image: "/images/acido-lincap.jpg" },
+    { descricao: "Espessante Adigel 25KG", image: "/images/adigel.jpg" },
+    {
+      descricao: "Base Amaciante liquida 1/250LT",
+      image: "/images/base-amaciante.jpg",
+    },
+    {
+      descricao: "Espessante Devengél 20KG",
+      image: "/images/denvergel-20kg.jpg",
+    },
+    { descricao: "Essências Floarome", image: "/images/floarome.jpg" },
+    { descricao: "Essências Lessence", image: "/images/lessence.jpg" },
+    { descricao: "Garrafa Branca 5L", image: "/images/garrafa-branca-5L.jpg" },
+    { descricao: "Sulfônico Indiano 90% (SK)", image: "/images/sulfonico.jpg" },
+  ];
+
+  const [index, setIndex] = useState(0);
   const [carrinho, setCarrinho] = useState<string[]>([]);
   const [mostrarCarrinho, setMostrarCarrinho] = useState(false);
-  const [animarMaisUm, setAnimarMaisUm] = useState<string | null>(null);
+
+  const proximo = () => setIndex((i) => (i + 1) % produtos.length);
+  const anterior = () =>
+    setIndex((i) => (i - 1 + produtos.length) % produtos.length);
 
   const adicionarAoCarrinho = (descricao: string) => {
     if (!carrinho.includes(descricao)) {
       setCarrinho([...carrinho, descricao]);
     }
-    setAnimarMaisUm(descricao);
-    setTimeout(() => setAnimarMaisUm(null), 800);
   };
 
   const removerDoCarrinho = (descricao: string) => {
@@ -33,31 +52,19 @@ export default function Home() {
     window.open(url, "_blank");
   };
 
-  const produtos = [
-    { descricao: "Ácido Lincap", image: "/images/acido-lincap.jpg" },
-    { descricao: "Adigel", image: "/images/adigel.jpg" },
-    { descricao: "Base Amaciante", image: "/images/base-amaciante.jpg" },
-    { descricao: "Devengel", image: "/images/denvergel-20kg.jpg" },
-    { descricao: "Lessence", image: "/images/floarome.jpg" },
-    { descricao: "Garrafa Branca 5L", image: "/images/garrafa-branca-5L.jpg" },
-    {
-      descricao: "Garrafa Cristal 5L",
-      image: "/images/garrafa-cristal-5L.jpg",
-    },
-    { descricao: "Lauril Pasta", image: "/images/lauril-pasta.jpg" },
-    { descricao: "Sulfônico", image: "/images/sulfonico.jpg" },
-  ];
-
   return (
-    <div className="container">
-      {/* Ícone do carrinho */}
+    <>
+      {/* Ícone do Carrinho */}
       <div
         className="cart-icon"
         onClick={() => setMostrarCarrinho(!mostrarCarrinho)}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          fill="none"
           viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="url(#cartGradient)"
           className="cart-svg"
         >
           <defs>
@@ -67,20 +74,19 @@ export default function Home() {
             </linearGradient>
           </defs>
           <path
-            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.436M7.5 14.25h10.125a1.125 1.125 0 001.09-.826l1.755-6.29a.375.375 0 00-.36-.484H6.09M7.5 14.25L5.106 5.271M7.5 14.25l-.38 1.435A1.125 1.125 0 008.25 16.875h9.75m-11.25 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm11.25 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-            fill="url(#cartGradient)"
-            stroke="url(#cartGradient)"
-            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            d="M2.25 3h1.5l1.5 9h13.5l1.5-6H6"
           />
+          <circle cx="9" cy="19" r="1" />
+          <circle cx="17" cy="19" r="1" />
         </svg>
         {carrinho.length > 0 && (
           <span className="cart-count">{carrinho.length}</span>
         )}
       </div>
 
-      {/* Modal Carrinho */}
+      {/* Modal do Carrinho */}
       {mostrarCarrinho && (
         <div className="cart-modal">
           <div className="cart-content">
@@ -111,7 +117,7 @@ export default function Home() {
               </button>
               {carrinho.length > 0 && (
                 <button className="finalizar-btn" onClick={finalizarPedido}>
-                  Finalizar Pedido via WhatsApp
+                  Finalizar via WhatsApp
                 </button>
               )}
             </div>
@@ -119,53 +125,59 @@ export default function Home() {
         </div>
       )}
 
-      <h1 className="titulo">✨ Catálogo de Produtos</h1>
-
-      {/* Carrossel */}
-      <div className="carousel-container">
-        <button
-          className="carousel-btn left"
-          onClick={() => {
-            const scroller = document.querySelector(".carousel")!;
-            scroller.scrollBy({ left: -300, behavior: "smooth" });
-          }}
-        >
-          {"<"}
-        </button>
-
+      {/* === DESKTOP === */}
+      <div className="desktop">
+        <h1 className="titulo">✨ Catálogo de Produtos</h1>
         <div className="carousel">
-          {produtos.map((produto, index) => (
-            <Card key={index}>
-              <div className="card-btn-wrapper">
-                {/* DESCRIÇÃO ESTILIZADA ACIMA DA IMAGEM */}
-                <h2 className="produto-nome">{produto.descricao}</h2>
-                <img src={produto.image} alt={produto.descricao} />
-
-                {/* BOTÃO */}
-                <Button
-                  nome="Adicionar ao Carrinho"
-                  onClick={() => adicionarAoCarrinho(produto.descricao)}
-                  className="btn-add"
-                />
-
-                {animarMaisUm === produto.descricao && (
-                  <span className="mais-um">+1</span>
-                )}
-              </div>
+          {produtos.map((p, i) => (
+            <Card key={i}>
+              <h2 className="produto-nome">{p.descricao}</h2>
+              <img src={p.image} alt={p.descricao} />
+              <Button
+                nome="Adicionar ao Carrinho"
+                onClick={() => adicionarAoCarrinho(p.descricao)}
+                className="btn-add"
+              />
             </Card>
           ))}
         </div>
+      </div>
 
-        <button
-          className="carousel-btn right"
-          onClick={() => {
-            const scroller = document.querySelector(".carousel")!;
-            scroller.scrollBy({ left: 300, behavior: "smooth" });
+      {/* === MOBILE === */}
+      <div className="carousel-mobile">
+        <div
+          className="carousel-track"
+          style={{
+            transform: `translateX(-${index * 100}%)`,
           }}
         >
-          {">"}
-        </button>
+          {produtos.map((produto, i) => (
+            <div className="card-full" key={i}>
+              <img
+                src={produto.image}
+                alt={produto.descricao}
+                className="imagem-full"
+              />
+              <h2 className="produto-nome">{produto.descricao}</h2>
+              <Button
+                nome="Adicionar ao Carrinho"
+                onClick={() => adicionarAoCarrinho(produto.descricao)}
+                className="btn-add"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Botões de navegação */}
+        <div className="carousel-controls">
+          <button className="carousel-btn" onClick={anterior}>
+            ⟨
+          </button>
+          <button className="carousel-btn" onClick={proximo}>
+            ⟩
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

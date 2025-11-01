@@ -1,51 +1,25 @@
-body {
-  font-family: "Inter", Arial, sans-serif;
-  background: #f6f7fb;
+html, body {
   margin: 0;
   padding: 0;
+  font-family: "Inter", sans-serif;
+  background: #f6f7fb;
+  overflow: hidden;
+  height: 100%;
 }
 
-.container {
-  padding: 20px;
-  position: relative;
-}
-
-.titulo {
-  text-align: center;
-  margin-top: 60px;
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #222;
-  background: linear-gradient(135deg, #9b5de5, #00bbf9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 0.8px;
-  transition: all 0.4s ease;
-}
-
-.titulo:hover {
-  transform: scale(1.04);
-  filter: brightness(1.2);
-}
-
-/* ÍCONE DO CARRINHO */
+/* === CARRINHO === */
 .cart-icon {
   position: fixed;
-  top: 18px;
-  right: 24px;
+  top: 16px;
+  right: 20px;
   cursor: pointer;
-  z-index: 30;
+  z-index: 50;
 }
 
 .cart-svg {
   width: 36px;
   height: 36px;
-  transition: transform 0.3s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-}
-
-.cart-icon:hover .cart-svg {
-  transform: scale(1.15);
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
 }
 
 .cart-count {
@@ -53,161 +27,34 @@ body {
   top: -6px;
   right: -6px;
   background: #ff3366;
-  color: white;
+  color: #fff;
   border-radius: 50%;
+  font-size: 0.8rem;
   padding: 3px 7px;
-  font-size: 0.75rem;
   font-weight: bold;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-/* CARD */
-.card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  min-width: 230px;
-  text-align: center;
-  scroll-snap-align: start;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.3s ease;
-  overflow: hidden;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(155, 93, 229, 0.25);
-  filter: brightness(1.05);
-}
-
-.card img {
-  width: 100%;
-  height: 170px;
-  object-fit: cover;
-  border-radius: 14px;
-}
-
-/* NOME DO PRODUTO ESTILIZADO COMO TÍTULO */
-.produto-nome {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #222;
-  text-align: center;
-  background: linear-gradient(135deg, #9b5de5, #00bbf9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 10px;
-}
-
-/* BOTÃO */
-.btn-add {
-  background: linear-gradient(135deg, #9b5de5, #00bbf9);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 18px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 16px rgba(155, 93, 229, 0.3);
-}
-
-.btn-add:hover {
-  background: linear-gradient(135deg, #ff6b6b, #fcb045);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
-}
-
-/* ANIMAÇÃO +1 */
-.mais-um {
-  position: absolute;
-  top: -15px;
-  right: 12px;
-  color: #25d366;
-  font-weight: bold;
-  font-size: 1rem;
-  animation: flutuar 0.8s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes flutuar {
-  0% { opacity: 1; transform: translateY(0) scale(1); }
-  50% { opacity: 1; transform: translateY(-18px) scale(1.3); }
-  100% { opacity: 0; transform: translateY(-40px) scale(1); }
-}
-
-/* CARROSSEL */
-.carousel-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.carousel {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 15px;
-  scroll-snap-type: x mandatory;
-}
-
-.carousel::-webkit-scrollbar {
-  display: none;
-}
-
-.carousel-btn {
-  background: linear-gradient(135deg, #9b5de5, #00bbf9);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s ease, background 0.3s ease;
-}
-
-.carousel-btn:hover {
-  transform: scale(1.15);
-  background: linear-gradient(135deg, #ff6b6b, #fcb045);
-}
-
-/* MODAL */
+/* === MODAL DO CARRINHO === */
 .cart-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 10, 10, 0.55);
+  background: rgba(10,10,10,0.55);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 30;
+  align-items: center;
+  z-index: 100;
 }
 
 .cart-content {
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-}
-
-.cart-content h2 {
-  margin: 0 0 15px 0;
-  font-size: 1.5rem;
-  color: #222;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .cart-content ul {
@@ -219,11 +66,10 @@ body {
 .cart-content li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
   background: #f6f7fb;
-  border-radius: 8px;
   padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
   font-weight: 500;
 }
 
@@ -231,53 +77,147 @@ body {
   background: none;
   border: none;
   color: #ff3366;
-  font-size: 1.2rem;
   cursor: pointer;
+  font-size: 1.2rem;
 }
 
 .cart-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
-.close-btn,
-.finalizar-btn {
+.close-btn, .finalizar-btn {
+  border: none;
   background: linear-gradient(135deg, #9b5de5, #00bbf9);
   color: white;
-  border: none;
-  padding: 10px 16px;
   border-radius: 10px;
-  font-weight: 600;
+  padding: 10px 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 600;
 }
 
-.close-btn:hover,
-.finalizar-btn:hover {
+.close-btn:hover, .finalizar-btn:hover {
   background: linear-gradient(135deg, #ff6b6b, #fcb045);
 }
 
-/* RESPONSIVO */
+/* === DESKTOP === */
+.desktop {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.titulo {
+  text-align: center;
+  margin-top: 70px;
+  font-size: 2rem;
+  background: linear-gradient(135deg, #9b5de5, #00bbf9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px;
+  height: calc(100vh - 120px);
+  box-sizing: border-box;
+}
+
+.carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* === MOBILE === */
 @media (max-width: 768px) {
-  .titulo {
-    font-size: 1.6rem;
-  }
-
-  .carousel {
-    gap: 12px;
-  }
-
-  .carousel-btn {
+  .desktop {
     display: none;
   }
 
-  .card img {
-    height: 140px;
+  .carousel-mobile {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
   }
 
-  .cart-svg {
-    width: 32px;
-    height: 32px;
+  .carousel-track {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .card-full {
+    min-width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .imagem-full {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #000;
+  }
+
+  .produto-nome {
+    position: absolute;
+    bottom: 6rem;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 700;
+    z-index: 2;
+  }
+
+  .btn-add {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #9b5de5, #00bbf9);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 14px 22px;
+    font-weight: 600;
+    width: 80%;
+    max-width: 320px;
+    z-index: 3;
+  }
+
+  .carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px;
+    z-index: 4;
+  }
+
+  .carousel-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
   }
 }
