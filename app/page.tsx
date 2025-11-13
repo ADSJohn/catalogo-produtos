@@ -53,7 +53,7 @@ export default function Home() {
       alert("Seu carrinho está vazio!");
       return;
     }
-    const numero = "+559981298301";
+    const numero = "+559982106176";
     const texto = `Olá! Tenho interesse nos seguintes produtos:\n\n${carrinho
       .map((item, i) => `${i + 1}. ${item}`)
       .join("\n")}\n\nPode me enviar mais informações, por favor?`;
